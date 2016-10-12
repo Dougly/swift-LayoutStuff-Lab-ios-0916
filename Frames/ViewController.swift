@@ -11,6 +11,25 @@ import UIKit
 class ViewController: UIViewController {
     var yellowSquare: UIView?
 
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var frameXSlider: UISlider!
+    @IBOutlet weak var frameYSlider: UISlider!
+    @IBOutlet weak var boundsXSlider: UISlider!
+    @IBOutlet weak var boundsYSlider: UISlider!
+    
+    @IBOutlet weak var frameYLabel: UILabel!
+    @IBOutlet weak var frameXLabel: UILabel!
+    @IBOutlet weak var boundsXLabel: UILabel!
+    @IBOutlet weak var boundsYLabel: UILabel!
+    
+    @IBOutlet weak var frameWidthSlider: UISlider!
+    @IBOutlet weak var frameHeightSlider: UISlider!
+    @IBOutlet weak var boundsWidthSlider: UISlider!
+    @IBOutlet weak var boundsHeightSlider: UISlider!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLabels()
@@ -27,6 +46,7 @@ class ViewController: UIViewController {
 
         boundsXLabel.text = "bounds x = \(bounds.origin.x)"
         boundsYLabel.text = "bounds y = \(bounds.origin.y)"
+        
     }
 
     fileprivate func updateSliders() {
@@ -43,6 +63,16 @@ class ViewController: UIViewController {
         boundsYSlider.maximumValue = Float(bounds.size.height)
         boundsXSlider.value = Float(bounds.origin.x)
         boundsYSlider.value = Float(bounds.origin.y)
+        
+        frameWidthSlider.maximumValue = Float(superFrame.size.width)
+        frameHeightSlider.maximumValue = Float(superFrame.size.height)
+        frameWidthSlider.value = Float(frame.size.width)
+        frameHeightSlider.value = Float(frame.size.height)
+        
+        boundsWidthSlider.maximumValue = Float(superFrame.size.width)
+        boundsHeightSlider.maximumValue = Float(superFrame.size.height)
+        boundsWidthSlider.value = Float(frame.size.width)
+        boundsHeightSlider.value = Float(frame.size.height)
     }
 
     fileprivate func updateYellowSquare() {
@@ -74,4 +104,25 @@ class ViewController: UIViewController {
         imageView.bounds.origin.y = CGFloat(sender.value)
         updateLabels()
     }
+    
+    @IBAction func frameWidthChanged(_ sender: UISlider) {
+        imageView.frame.size.width = CGFloat(sender.value)
+        boundsWidthSlider.value = Float(imageView.bounds.size.width)
+    }
+    
+    @IBAction func frameHeightChanged(_ sender: UISlider) {
+        imageView.frame.size.height = CGFloat(sender.value)
+        boundsHeightSlider.value = Float(imageView.bounds.size.height)
+    }
+    
+    @IBAction func boundsWidthChanged(_ sender: UISlider) {
+        imageView.bounds.size.width = CGFloat(sender.value)
+        frameWidthSlider.value = Float(imageView.frame.size.width)
+    }
+    
+    @IBAction func boundsHeightChanged(_ sender: UISlider) {
+        imageView.bounds.size.height = CGFloat(sender.value)
+        frameHeightSlider.value = Float(imageView.frame.size.height)    
+    }
+    
 }
